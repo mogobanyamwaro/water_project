@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Grid,
   Paper,
@@ -8,17 +8,34 @@ import {
   Button,
 } from '@material-ui/core';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+
+import { useGlobalContext } from '../context';
+
 import Checkbox from '@material-ui/core/Checkbox';
-const Register = () => {
+const Register = ({ history }) => {
   const paperStyle = { padding: 20, width: 300, margin: '0 auto' };
   const headerStyle = { margin: 0 };
   const avatarStyle = { backgroundColor: '#1bbd7e' };
-  const marginTop = { marginTop: 5 };
+  const { registerUser } = useGlobalContext();
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const registerOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password, confirmPassword }),
+    };
+
+    registerUser(registerOptions);
+    history.push('/welcome');
+  };
+
   return (
     <Grid>
       <Paper style={paperStyle}>
@@ -31,23 +48,33 @@ const Register = () => {
             Please fill this form to create an account !
           </Typography>
         </Grid>
-        <form>
-          <TextField fullWidth label="Name" placeholder="Enter your name" />
-          <TextField fullWidth label="Email" placeholder="Enter your email" />
-
+        <form onSubmit={handleSubmit}>
           <TextField
             fullWidth
-            label="Phone Number"
-            placeholder="Enter your phone number"
+            label="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your Email"
+          />
+          <TextField
+            fullWidth
+            label="Full Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter your Full Name"
           />
           <TextField
             fullWidth
             label="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
           />
           <TextField
             fullWidth
             label="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Confirm your password"
           />
           <FormControlLabel
