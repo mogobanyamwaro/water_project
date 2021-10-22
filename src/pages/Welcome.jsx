@@ -7,8 +7,7 @@ function Welcome() {
   const { loading } = useGlobalContext();
   return (
     <>
-      <FeaturedInfo />
-      <ProductList />
+      
     </>
   );
 }
