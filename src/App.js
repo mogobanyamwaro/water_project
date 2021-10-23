@@ -141,7 +141,7 @@ function App() {
             [classes.appBarShift]: open,
           })}
         >
-          <Toolbar>
+          <Toolbar className={classes.toolbar}>
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -273,6 +273,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
+
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
@@ -289,7 +290,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   menuButton: {
-    marginRight: 36,
+    marginRight: 700,
   },
   hide: {
     display: 'none',
