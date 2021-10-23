@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import { Route, BrowserRouter as Router } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Link } from 'react-router-dom';
 // Import the Pages
 
 import Welcome from './pages/Welcome';
@@ -93,8 +93,12 @@ function App() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <Link to="/login">
+        <MenuItem onClick={handleMenuClose}>Login</MenuItem>
+      </Link>
+      <Link to="/">
+        <MenuItem onClick={handleMenuClose}>Register</MenuItem>
+      </Link>
     </Menu>
   );
 
@@ -153,9 +157,11 @@ function App() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap>
-              Smart Water Meter
-            </Typography>
+            <Link to="/welcome">
+              <Typography variant="h6" noWrap>
+                Smart Water Meter
+              </Typography>
+            </Link>
 
             <div className={classes.sectionDesktop}>
               <IconButton aria-label="show 4 new mails" color="inherit">
@@ -262,6 +268,8 @@ function App() {
           <Route path="/" component={Register} exact />
           <Route path="/login" component={Login} exact />
         </main>
+        {renderMobileMenu}
+        {renderMenu}
       </div>
     </Router>
   );
