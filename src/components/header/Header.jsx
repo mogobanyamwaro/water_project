@@ -32,7 +32,7 @@ export default function Topbar() {
         ) : (
           <div className="topRight">
             <div className="topbarIconContainer">
-              <Link to="/login">
+              <Link to="/">
                 <span className="logo">Login</span>
               </Link>
             </div>

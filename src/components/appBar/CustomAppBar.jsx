@@ -29,11 +29,14 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import RouterIcon from '@material-ui/icons/Router';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 
-
 /*Custom Imports*/
 import FeaturedInfo from '../featuredInfo/FeaturedInfo';
 import ProductList from '../productList/ProductList';
-import { AccountBalanceWallet, Assessment, PeopleAlt } from '@material-ui/icons';
+import {
+  AccountBalanceWallet,
+  Assessment,
+  PeopleAlt,
+} from '@material-ui/icons';
 
 const drawerWidth = 240;
 
@@ -112,7 +115,7 @@ export default function CustomAppBar() {
     setOpen(false);
   };
 
-/*Custom Addition Top_Bar Icons*/
+  /*Custom Addition Top_Bar Icons*/
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -186,7 +189,6 @@ export default function CustomAppBar() {
     </Menu>
   );
 
-
   /*Custom Addition Top_Bar Icons*/
 
   return (
@@ -213,7 +215,7 @@ export default function CustomAppBar() {
           <Typography variant="h6" noWrap>
             Smart Water Meter
           </Typography>
-         
+
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -247,7 +249,6 @@ export default function CustomAppBar() {
               <MoreIcon />
             </IconButton>
           </div>
-          
         </Toolbar>
       </AppBar>
       <Drawer
@@ -265,37 +266,56 @@ export default function CustomAppBar() {
       >
         <div className={classes.toolbar}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            {theme.direction === 'rtl' ? (
+              <ChevronRightIcon />
+            ) : (
+              <ChevronLeftIcon />
+            )}
           </IconButton>
         </div>
         <Divider />
 
-      <ListItem button>
-        <ListItemIcon> <DashboardIcon /> </ListItemIcon>
-        <ListItemText primary="Dashboard" />
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon> <RouterIcon /> </ListItemIcon>
-        <ListItemText primary="Devices" />
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon> <PeopleAlt /> </ListItemIcon>
-        <ListItemText primary="Managers" />
-      </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            {' '}
+            <DashboardIcon />{' '}
+          </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            {' '}
+            <RouterIcon />{' '}
+          </ListItemIcon>
+          <ListItemText primary="Devices" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            {' '}
+            <PeopleAlt />{' '}
+          </ListItemIcon>
+          <ListItemText primary="Managers" />
+        </ListItem>
         <Divider />
         <ListItem button>
-        <ListItemIcon> <AccountBalanceWallet /> </ListItemIcon>
-        <ListItemText primary="Transactions" />
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon> <Assessment /> </ListItemIcon>
-        <ListItemText primary="Analytics" />
-      </ListItem>
+          <ListItemIcon>
+            {' '}
+            <AccountBalanceWallet />{' '}
+          </ListItemIcon>
+          <ListItemText primary="Transactions" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            {' '}
+            <Assessment />{' '}
+          </ListItemIcon>
+          <ListItemText primary="Analytics" />
+        </ListItem>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-      <FeaturedInfo />
-      <ProductList />
+        <FeaturedInfo />
+        <ProductList />
       </main>
     </div>
   );
