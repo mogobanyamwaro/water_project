@@ -19,7 +19,7 @@ export default function FeaturedInfo() {
       <div className="featuredItem">
         <span className="featuredTitle">Total Litres</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">3,22500</span>
+          <span className="featuredMoney">3,250</span>
         </div>
       </div>
     </div>

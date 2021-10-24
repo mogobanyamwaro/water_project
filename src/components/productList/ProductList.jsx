@@ -1,63 +1,58 @@
-import './productList.css';
+import * as React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
-import { DeleteOutline } from '@material-ui/icons';
-import { productRows } from '../../dummyData';
+import SearchAppBar from './SearchFilter'
+import FeaturedInfo from '../featuredInfo/FeaturedInfo';
 
-import { useState } from 'react';
-import Sidebar from '../sidebar/Sidebar';
+const columns = [
+  { field: 'id', headerName: 'ID', flex: 1, hide:true },
+  { field: 'Device_ID', 
+  headerName: 'Device ID', 
+  flex: 1, },
+  {
+    field: 'Total_Ksh',
+    headerName: 'Total Ksh',
+    flex: 1,
+    editable: true,
+  },
+  {
+    field: 'Total_Litres',
+    headerName: 'Total Litres',
+    flex: 1,
+    editable: true,
+  },
+  {
+    field: 'Status',
+    headerName: 'Status',
+    flex: 1,
+    editable: true,
+  },
+];
 
-export default function ProductList() {
-  const [data, setData] = useState(productRows);
+const rows = [
+  { id: 1, Device_ID: 15443, Total_Ksh: 'Ksh 15443', Total_Litres: '1000', Status: 'On' },
+  { id: 2, Device_ID: 23234, Total_Ksh: 'Ksh 15443', Total_Litres: '1000', Status: 'On'},
+  { id: 3, Device_ID: 32445, Total_Ksh: 'Ksh 15443', Total_Litres: '1000', Status: 'Off' },
+  { id: 4, Device_ID: 43234, Total_Ksh: 'Ksh 15443', Total_Litres: '1000', Status: 'Leaking' },
+  { id: 5, Device_ID: 52224, Total_Ksh: 'Ksh 15443', Total_Litres: '1000', Status: 'Out of Service' },
+  { id: 6, Device_ID: 64673, Total_Ksh: 'Ksh 15443', Total_Litres: '1000', Status: 'On' },
+  { id: 7, Device_ID: 72355, Total_Ksh: 'Ksh 15443', Total_Litres: '1000', Status: 'Out of Service' },
+  { id: 8, Device_ID: 82456, Total_Ksh: 'Ksh 15443', Total_Litres: '1000', Status: 'Leaking' },
+  { id: 9, Device_ID: 92334, Total_Ksh: 'Ksh 15443', Total_Litres: '1000', Status: 'OFf' },
+];
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
-  };
-
-  const columns = [
-    { field: '_id', headerName: 'ID', width: 90 },
-    {
-      field: 'product',
-      headerName: 'TimeStamp',
-      width: 200,
-      renderCell: (params) => {
-        return (
-          <div className="productListItem">
-            <img className="productListImg" src={params.row.img} alt="" />
-            {params.row.name}
-          </div>
-        );
-      },
-    },
-    { field: 'stock', headerName: 'Amount of Water', width: 200 },
-    {
-      field: 'status',
-      headerName: 'Leakages',
-      width: 120,
-    },
-    {
-      field: 'price',
-      headerName: 'Cost',
-      width: 160,
-    },
-    {
-      field: 'number',
-      headerName: 'Number',
-      width: 150,
-    },
-  ];
-
+export default function DataTable() {
   return (
-    <div className="productListItem">
-      <Sidebar />
-      <div className="productList">
-        <DataGrid
-          rows={data}
-          disableSelectionOnClick
-          columns={columns}
-          pageSize={8}
-          checkboxSelection
-        />
-      </div>
+    
+    <div style={{ height: 400, width: '100%', marginTop:10,}}>
+      <FeaturedInfo/>
+      <SearchAppBar/>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        pageSize={5}
+        checkboxSelection
+        disableSelectionOnClick
+      />
     </div>
   );
 }
