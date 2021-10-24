@@ -6,6 +6,7 @@ import { Route, BrowserRouter as Router, Link } from 'react-router-dom';
 import Welcome from './pages/Welcome';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Devices from './pages/Devices';
 
 // Material UI
 import clsx from 'clsx';
@@ -13,7 +14,6 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -24,9 +24,8 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import InputBase from '@material-ui/core/InputBase';
+
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -36,10 +35,10 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import RouterIcon from '@material-ui/icons/Router';
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import {
   AccountBalanceWallet,
   Assessment,
+  Height,
   PeopleAlt,
 } from '@material-ui/icons';
 const drawerWidth = 240;
@@ -147,6 +146,7 @@ function App() {
         >
           <Toolbar className={classes.toolbar}>
             <IconButton
+              
               color="inherit"
               aria-label="open drawer"
               onClick={handleDrawerOpen}
@@ -154,6 +154,7 @@ function App() {
               className={clsx(classes.menuButton, {
                 [classes.hide]: open,
               })}
+              style={{ }}
             >
               <MenuIcon />
             </IconButton>
@@ -226,18 +227,28 @@ function App() {
           <Divider />
 
           <ListItem button>
+            
+
+          <Link to='/dashboard'>
             <ListItemIcon>
               {' '}
               <DashboardIcon />{' '}
             </ListItemIcon>
+            </Link>
+            <Link to='/dashboard'>
             <ListItemText primary="Dashboard" />
+            </Link>
           </ListItem>
-          <ListItem button>
-            <ListItemIcon>
+            <ListItem button>
+            <Link to='/devices'>
+          <ListItemIcon>
               {' '}
               <RouterIcon />{' '}
             </ListItemIcon>
+            </Link>
+            <Link to='/devices'>
             <ListItemText primary="Devices" />
+            </Link>
           </ListItem>
           <ListItem button>
             <ListItemIcon>
@@ -264,9 +275,10 @@ function App() {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route path="/welcome" component={Welcome} exact />
+          <Route path="/dashboard" component={Welcome} exact />
           <Route path="/" component={Register} exact />
           <Route path="/login" component={Login} exact />
+          <Route path="/devices" component={Devices} exact />
         </main>
         {renderMobileMenu}
         {renderMenu}
@@ -280,6 +292,7 @@ export default App;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    // backgroundColor: 'rgb(242,245,249)',
   },
 
   appBar: {
@@ -298,7 +311,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   menuButton: {
-    marginRight: 700,
+    // marginRight: 700,
   },
   hide: {
     display: 'none',

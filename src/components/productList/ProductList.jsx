@@ -2,6 +2,9 @@ import * as React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import SearchAppBar from './SearchFilter'
 import FeaturedInfo from '../featuredInfo/FeaturedInfo';
+import './productList.css';
+
+
 
 const columns = [
   { field: 'id', headerName: 'ID', flex: 1, hide:true },
@@ -43,9 +46,9 @@ const rows = [
 export default function DataTable() {
   return (
     
-    <div style={{ height: 400, width: '100%', marginTop:10,}}>
-      <FeaturedInfo/>
-      <SearchAppBar/>
+    <div className="dataTable">
+      
+      
       <DataGrid
         rows={rows}
         columns={columns}
