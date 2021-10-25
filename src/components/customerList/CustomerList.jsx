@@ -1,61 +1,59 @@
-import './productList.css';
+import * as React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
-import { DeleteOutline } from '@material-ui/icons';
-import { productRows } from '../../dummyData';
+import './CustomerList.css';
 
-import { useState } from 'react';
 
-export default function ProductList() {
-  const [data, setData] = useState(productRows);
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
-  };
+const columns = [
+  { field: 'id', headerName: 'ID', flex: 1, hide:true },
+  { field: 'Phone_Number', 
+  headerName: 'Phone_Number', 
+  flex: 1, },
+  {
+    field: 'Paid_Ksh',
+    headerName: 'Paid Ksh',
+    flex: 1,
+    editable: true,
+  },
+  {
+    field: 'Amount_Litres',
+    headerName: 'Litres',
+    flex: 1,
+    editable: true,
+  },
+  {
+    field: 'TimeStamp',
+    headerName: 'TimeStamp',
+    flex: 1,
+    editable: true,
+  },
+];
 
-  const columns = [
-    { field: '_id', headerName: 'ID', width: 90 },
-    {
-      field: 'product',
-      headerName: 'TimeStamp',
-      width: 200,
-      renderCell: (params) => {
-        return (
-          <div className="productListItem">
-            <img className="productListImg" src={params.row.img} alt="" />
-            {params.row.name}
-          </div>
-        );
-      },
-    },
-    { field: 'stock', headerName: 'Amount of Water', width: 200 },
-    {
-      field: 'status',
-      headerName: 'Leakages',
-      width: 120,
-    },
-    {
-      field: 'price',
-      headerName: 'Cost',
-      width: 160,
-    },
-    {
-      field: 'number',
-      headerName: 'Number',
-      width: 150,
-    },
-  ];
+const rows = [
+  { id: 1, Phone_Number: 790566616, Paid_Ksh: 'Ksh 150', Amount_Litres: '1000', TimeStamp: '11:59' },
+  { id: 2, Phone_Number: 790566616, Paid_Ksh: 'Ksh 10', Amount_Litres: '20', TimeStamp: '11:59'},
+  { id: 3, Phone_Number: 790566616, Paid_Ksh: 'Ksh 40', Amount_Litres: '80', TimeStamp: '13:45' },
+  { id: 4, Phone_Number: 790566616, Paid_Ksh: 'Ksh 60', Amount_Litres: '90', TimeStamp: '13:45' },
+  { id: 5, Phone_Number: 790566616, Paid_Ksh: 'Ksh 70', Amount_Litres: '85', TimeStamp: '16:50' },
+  { id: 6, Phone_Number: 790566616, Paid_Ksh: 'Ksh 58', Amount_Litres: '66', TimeStamp: '16:50' },
+  { id: 7, Phone_Number: 790566616, Paid_Ksh: 'Ksh 90', Amount_Litres: '56', TimeStamp: '11:59' },
+  { id: 8, Phone_Number: 790566616, Paid_Ksh: 'Ksh 40', Amount_Litres: '50', TimeStamp: '11:59' },
+  { id: 9, Phone_Number: 790566616, Paid_Ksh: 'Ksh 2000', Amount_Litres: '100', TimeStamp: '11:59' },
+];
 
+export default function DataTable() {
   return (
-    <div className="productListItem">
-      <div className="productList">
-        <DataGrid
-          rows={data}
-          disableSelectionOnClick
-          columns={columns}
-          pageSize={8}
-          checkboxSelection
-        />
-      </div>
+    
+    <div className="dataTable">
+      
+      
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        pageSize={5}
+        checkboxSelection
+        disableSelectionOnClick
+      />
     </div>
   );
 }

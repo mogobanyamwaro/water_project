@@ -1,0 +1,10 @@
+.dataTable {
+    display: flex;
+    height: 400px;
+    width: 90%;
+    position: absolute;
+    background-color: white;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 10px;
+}
