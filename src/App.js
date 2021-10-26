@@ -7,6 +7,7 @@ import Welcome from './pages/Welcome';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Devices from './pages/Devices';
+import Charts from './pages/Chart';
 
 // Material UI
 import clsx from 'clsx';
@@ -112,14 +113,14 @@ function App() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      {/* <MenuItem>
         <IconButton aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="secondary">
             <MailIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
-      </MenuItem>
+      </MenuItem> */}
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -146,7 +147,6 @@ function App() {
         >
           <Toolbar className={classes.toolbar}>
             <IconButton
-              
               color="inherit"
               aria-label="open drawer"
               onClick={handleDrawerOpen}
@@ -154,22 +154,17 @@ function App() {
               className={clsx(classes.menuButton, {
                 [classes.hide]: open,
               })}
-              style={{ }}
+              style={{}}
             >
               <MenuIcon />
             </IconButton>
-            <Link to="/welcome">
+            <Link to="/dashboard">
               <Typography variant="h6" noWrap>
                 Smart Water Meter
               </Typography>
             </Link>
 
             <div className={classes.sectionDesktop}>
-              <IconButton aria-label="show 4 new mails" color="inherit">
-                <Badge badgeContent={4} color="secondary">
-                  <MailIcon />
-                </Badge>
-              </IconButton>
               <IconButton
                 aria-label="show 17 new notifications"
                 color="inherit"
@@ -227,27 +222,25 @@ function App() {
           <Divider />
 
           <ListItem button>
-            
-
-          <Link to='/dashboard'>
-            <ListItemIcon>
-              {' '}
-              <DashboardIcon />{' '}
-            </ListItemIcon>
+            <Link to="/dashboard">
+              <ListItemIcon>
+                {' '}
+                <DashboardIcon />{' '}
+              </ListItemIcon>
             </Link>
-            <Link to='/dashboard'>
-            <ListItemText primary="Dashboard" />
+            <Link to="/dashboard">
+              <ListItemText primary="Dashboard" />
             </Link>
           </ListItem>
-            <ListItem button>
-            <Link to='/devices'>
-          <ListItemIcon>
-              {' '}
-              <RouterIcon />{' '}
-            </ListItemIcon>
+          <ListItem button>
+            <Link to="/devices">
+              <ListItemIcon>
+                {' '}
+                <RouterIcon />{' '}
+              </ListItemIcon>
             </Link>
-            <Link to='/devices'>
-            <ListItemText primary="Devices" />
+            <Link to="/devices">
+              <ListItemText primary="Devices" />
             </Link>
           </ListItem>
           <ListItem button>
@@ -266,11 +259,15 @@ function App() {
             <ListItemText primary="Transactions" />
           </ListItem>
           <ListItem button>
-            <ListItemIcon>
-              {' '}
-              <Assessment />{' '}
-            </ListItemIcon>
-            <ListItemText primary="Analytics" />
+            <Link to="/analytics">
+              <ListItemIcon>
+                {' '}
+                <Assessment />{' '}
+              </ListItemIcon>
+            </Link>
+            <Link to="/analytics">
+              <ListItemText primary="Analytics" />
+            </Link>
           </ListItem>
         </Drawer>
         <main className={classes.content}>
@@ -279,6 +276,7 @@ function App() {
           <Route path="/" component={Register} exact />
           <Route path="/login" component={Login} exact />
           <Route path="/devices" component={Devices} exact />
+          <Route path="/analytics" component={Charts} exact />
         </main>
         {renderMobileMenu}
         {renderMenu}
