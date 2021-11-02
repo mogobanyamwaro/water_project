@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route, BrowserRouter as Router, Link } from 'react-router-dom';
 // Import the Pages
 
@@ -25,26 +25,31 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
 
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import RouterIcon from '@material-ui/icons/Router';
+
+// Context
+import { Context } from './context/Context';
 import {
   AccountBalanceWallet,
   Assessment,
-  Height,
   PeopleAlt,
 } from '@material-ui/icons';
 const drawerWidth = 240;
 
 function App() {
+  const { user, dispatch } = useContext(Context);
+  const handleLogout = () => {
+    dispatch({ type: 'LOGOUT' });
+  };
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -93,12 +98,18 @@ function App() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <Link to="/login">
-        <MenuItem onClick={handleMenuClose}>Login</MenuItem>
-      </Link>
-      <Link to="/">
-        <MenuItem onClick={handleMenuClose}>Register</MenuItem>
-      </Link>
+      {user ? (
+        <MenuItem onClick={(handleMenuClose, handleLogout)}>Logout</MenuItem>
+      ) : (
+        <>
+          <Link to="/login" className="login">
+            <MenuItem onClick={handleMenuClose}>Login</MenuItem>
+          </Link>
+          <Link to="/" className="register">
+            <MenuItem onClick={handleMenuClose}>Register</MenuItem>
+          </Link>
+        </>
+      )}
     </Menu>
   );
 
@@ -113,14 +124,6 @@ function App() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {/* <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem> */}
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -158,7 +161,7 @@ function App() {
             >
               <MenuIcon />
             </IconButton>
-            <Link to="/dashboard">
+            <Link to="/dashboard" className="smart__water">
               <Typography variant="h6" noWrap>
                 Smart Water Meter
               </Typography>
@@ -272,11 +275,11 @@ function App() {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route path="/dashboard" component={Welcome} exact />
+          <Route path="/dashboard" component={user ? Welcome : Login} exact />
           <Route path="/" component={Register} exact />
           <Route path="/login" component={Login} exact />
-          <Route path="/devices" component={Devices} exact />
-          <Route path="/analytics" component={Charts} exact />
+          <Route path="/devices" component={user ? Devices : Login} exact />
+          <Route path="/analytics" component={user ? Charts : Login} exact />
         </main>
         {renderMobileMenu}
         {renderMenu}

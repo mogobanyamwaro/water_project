@@ -1,4 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
+import { axiosInstance } from '../config';
+import { Context } from '../context/Context';
+
+import { Link } from 'react-router-dom';
 import {
   Grid,
   Paper,
@@ -6,15 +10,12 @@ import {
   TextField,
   Button,
   Typography,
-  Link,
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
-import { useGlobalContext } from '../context';
 const Login = ({ handleChange, history }) => {
-  const { loginUser } = useGlobalContext();
   const paperStyle = {
     padding: 20,
     height: '73vh',
@@ -23,19 +24,26 @@ const Login = ({ handleChange, history }) => {
   };
   const avatarStyle = { backgroundColor: '#1bbd7e' };
   const btnstyle = { margin: '8px 0' };
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const { dispatch, isFetching } = useContext(Context);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const registerOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    };
-    loginUser(registerOptions);
-    console.log(history);
-    history.push('/welcome');
+    dispatch({ type: 'LOGIN_START' });
+    try {
+      const res = await axiosInstance.post('/auth/login', {
+        email,
+        password,
+      });
+      console.log(res.data.email);
+      dispatch({ type: 'LOGIN_SUCCESS', payload: res.data.email });
+      history.push('/dashboard');
+    } catch (error) {
+      dispatch({ type: 'LOGIN_FAILURE' });
+    }
   };
   return (
     <Grid>
@@ -61,6 +69,7 @@ const Login = ({ handleChange, history }) => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onCha
             fullWidth
             required
           />
@@ -74,6 +83,7 @@ const Login = ({ handleChange, history }) => {
             variant="contained"
             style={btnstyle}
             fullWidth
+            disabled={isFetching}
           >
             Sign in
           </Button>
@@ -83,10 +93,7 @@ const Login = ({ handleChange, history }) => {
         </Typography>
         <Typography>
           {' '}
-          Do you have an account ?
-          <Link href="#" onClick={() => handleChange('event', 1)}>
-            Sign Up
-          </Link>
+          Don't have an account ?<Link to="/">Sign Up</Link>
         </Typography>
       </Paper>
     </Grid>

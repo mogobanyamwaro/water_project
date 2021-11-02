@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { axiosInstance } from '../config';
+
 import {
   Grid,
   Paper,
@@ -10,30 +12,30 @@ import {
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-import { useGlobalContext } from '../context';
-
 import Checkbox from '@material-ui/core/Checkbox';
 const Register = ({ history }) => {
   const paperStyle = { padding: 20, width: 300, margin: '0 auto' };
   const headerStyle = { margin: 0 };
   const avatarStyle = { backgroundColor: '#1bbd7e' };
-  const { registerUser } = useGlobalContext();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const registerOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password, confirmPassword }),
-    };
-
-    registerUser(registerOptions);
-    history.push('/welcome');
+    try {
+      const res = await axiosInstance.post('/auth/register', {
+        name,
+        email,
+        confirmPassword,
+        password,
+      });
+      res.data && history.push('/dashboard');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -67,6 +69,7 @@ const Register = ({ history }) => {
             fullWidth
             label="Password"
             value={password}
+            type="password"
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
           />
@@ -76,6 +79,7 @@ const Register = ({ history }) => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Confirm your password"
+            type="password"
           />
           <FormControlLabel
             control={<Checkbox name="checkedA" />}

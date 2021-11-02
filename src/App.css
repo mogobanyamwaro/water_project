@@ -3,5 +3,30 @@
 } */
 
 .root {
-    background-color: linen;
+  background-color: linen;
+}
+.smart__water {
+  text-decoration: none;
+  color: #fff;
+  transform: scale(1);
+  transition: all 1000ms;
+}
+.smart__water:hover {
+  color: #ccc;
+  text-decoration: none;
+  transform: scale(0.98);
+}
+.login,
+.register {
+  text-decoration: none;
+  color: #000;
+}
+
+.register:hover {
+  text-decoration: none;
+  color: #000;
+}
+.login:hover {
+  text-decoration: none;
+  color: #000;
 }
