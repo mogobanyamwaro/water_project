@@ -1,7 +1,6 @@
 {
   "name": "webapp",
   "version": "0.1.0",
-  "proxy":"http://localhost:4104/api",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.4",
