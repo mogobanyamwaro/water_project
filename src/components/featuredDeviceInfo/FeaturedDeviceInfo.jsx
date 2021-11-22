@@ -5,7 +5,14 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import TapAndPlayIcon from '@material-ui/icons/TapAndPlay';
 import { blue, deepOrange, green } from '@material-ui/core/colors';
 
-export default function FeaturedDeviceInfo() {
+export default function FeaturedDeviceInfo({
+  totalAmount,
+  totalLitres,
+  loading,
+}) {
+  if (loading) {
+    return <h1>Please wait...</h1>;
+  }
   return (
     <div className="featured">
       <div className="featuredItem">
@@ -29,7 +36,7 @@ export default function FeaturedDeviceInfo() {
             className="featuredIcon"
             style={{ fontSize: 75, color: deepOrange[500] }}
           />
-          <span className="featuredMoney">Ksh 3,400</span>
+          <span className="featuredMoney">Ksh {totalAmount}</span>
         </div>
       </div>
       <div className="featuredItem">
@@ -41,7 +48,7 @@ export default function FeaturedDeviceInfo() {
             className="featuredIcon"
             style={{ fontSize: 75, color: blue[500] }}
           />
-          <span className="featuredMoney">3,250 Litres</span>
+          <span className="featuredMoney">{totalLitres} Litres</span>
         </div>
       </div>
     </div>
